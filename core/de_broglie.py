@@ -40,11 +40,11 @@ def energia_de_foton(comp_onda, cte_planck=constants.h, cte_luz=constants.c):
     float
         Energia de um fóton
     """    
-    energia = (cte_planck * cte_luz) / comp_onda
+    energia=(cte_planck * cte_luz) / comp_onda
     return energia
 
 
-def energia_de_foton_mol (energia_de_foton, avogadro=constants.Avogadro):
+def energia_de_foton_mol(energia_de_foton, avogadro=constants.Avogadro):
     """Calcula a energia de um foton usando a equação de Planck-Einstein, modificando para um mol com a constante de Avogadro
     
     Parameters
@@ -81,13 +81,15 @@ def espectro_eletromagnetico(comp_onda):
     else:
         print("Raios Gama")
 
-massa = eval(input("Massa da partícula: "))
-velocidade = eval(input("Velocidade da partícula: "))
 
-x = de_broglie_lambda(massa, velocidade)
-y = energia_de_foton (x)
+if __name__ == "__main__":
+    massa = eval(input("Massa da partícula: "))
+    velocidade = eval(input("Velocidade da partícula: "))
+    print(de_broglie_lambda(massa, velocidade))
 
-print(x)
-print(energia_de_foton(x))
-print(energia_de_foton_mol(y))
-print(espectro_eletromagnetico (x))
+lambda_da_particula = de_broglie_lambda(massa, velocidade)
+energia = energia_de_foton (lambda_da_particula)
+
+print(energia_de_foton(lambda_da_particula))
+print(energia_de_foton_mol(energia))
+print(espectro_eletromagnetico (lambda_da_particula))
