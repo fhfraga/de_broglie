@@ -17,4 +17,4 @@ class TestDeEnergia(unittest.TestCase):
 
 class TestDeEnergiaMol(unittest.TestCase):
     def test_energia_foton(self):
-        self.assertAlmostEqual(de_broglie.energia_de_foton_mol(1.0923698122951293e-15), 657840477.5390708, 0)
+        self.assertAlmostEqual(de_broglie.energia_de_foton_mol(1.092369795326876e-15), 657840477.5390708)

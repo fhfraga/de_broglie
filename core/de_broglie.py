@@ -91,11 +91,9 @@ def espectro_eletromagnetico(comp_onda):
 if __name__ == "__main__":
     massa = eval(input("Massa da partícula: "))
     velocidade = eval(input("Velocidade da partícula: "))
+    lambda_da_particula = de_broglie_lambda(massa, velocidade)
+    energia = energia_de_foton(lambda_da_particula)
     print(de_broglie_lambda(massa, velocidade))
-
-lambda_da_particula = de_broglie_lambda(massa, velocidade)
-energia = energia_de_foton(lambda_da_particula)
-
-print(energia_de_foton(lambda_da_particula))
-print(energia_de_foton_mol(energia))
-print(espectro_eletromagnetico(lambda_da_particula))
+    print(energia_de_foton(lambda_da_particula))
+    print(energia_de_foton_mol(energia))
+    print(espectro_eletromagnetico(lambda_da_particula))
