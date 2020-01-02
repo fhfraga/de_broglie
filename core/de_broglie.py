@@ -93,5 +93,5 @@ if __name__ == "__main__":
     energia = energia_de_foton(lambda_da_particula)
     print(de_broglie_lambda(massa, velocidade))
     print(energia_de_foton(lambda_da_particula))
-    print(energia_de_foton_mol(energia))
+    print(energia_de_foton_mol(de_broglie_lambda(massa, velocidade)))
     print(espectro_eletromagnetico(lambda_da_particula))
