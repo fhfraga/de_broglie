@@ -29,7 +29,7 @@ def energia_de_foton(comp_onda, cte_planck=constants.h, cte_luz=constants.c):
     Parameters
     ----------
     comp_onda : float
-        lambda da partícula desejada.
+        comprimento de onda.
     cte_planck : float, opcional
         Constante de Planck, por padrão constants.h do pacote scipy,
         cuja unidade é joule por segundo.
@@ -40,30 +40,28 @@ def energia_de_foton(comp_onda, cte_planck=constants.h, cte_luz=constants.c):
     Returns
     -------
     float
-        Energia de um fóton.
+        Energia de um fóton com o comprimento de onda em questão.
     """
     energia = (cte_planck * cte_luz) / comp_onda
     return energia
 
 
-def energia_de_foton_mol(energia_de_foton, avogadro=constants.Avogadro):
-    """Calcula a energia de um foton usando a equação de Planck-Einstein,
-    modificando para um mol com a constante de Avogadro.
+def energia_de_foton_mol(comp_onda, avogadro=constants.Avogadro):
+    """Calcula a energia de um mol de fóton usando a equação de Planck-Einstein.
 
     Parameters
     ----------
-    energia_de_foton : float
-        Energia de um única fóton.
-    avogadro : float, opcional
-        Número de atomos em um mol de substância,por padrão constants.Avogadro
-        do pacote scipy.
+    comp_onda : float
+        comprimento de onda
+    avogadro : float, optional
+        constante de Avogadro, by default constants.Avogadro
 
     Returns
     -------
-    [float]
-        Energia de fótons em um mol de uma determinada substância.
+    float
+        Energia de um mol de fótons com o comprimento de onda em questão.
     """
-    energia = energia_de_foton * avogadro
+    energia = energia_de_foton(comp_onda) * avogadro
     return energia
 
 
