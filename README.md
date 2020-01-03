@@ -20,7 +20,14 @@ exemplo, alterando a velocidade.
 ![de_broglie2](images/exemplo02.png)
 
 As funções isoladas podem ser acessadas
-por importação em um terminal interativo ou em Jupyter Notebooks. (Tutorial a ser feito.)
+por importação em um terminal interativo ou em Jupyter Notebooks. (Tutorial a ser feito).
+
+O programa se baseia na classificação das regiões espectrais dada pela
+[ISO 21348](https://www.iso.org/standard/39911.html) para fornecer os nomes das
+regiões associadas a um dado comprimento de onda. Mais de um nome pode ser
+fornecido, já que diferentes áreas da ciência classificam de formas distintas
+algumas regiões. O arquivo PDF da tabela dessa ISO e a tabela com os dados
+que o programa usam se encontram na pasta core.
 
 # Instalação
 
