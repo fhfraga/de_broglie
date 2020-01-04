@@ -1,9 +1,6 @@
 from scipy import constants
 import pandas as pd
 from tabulate import tabulate
-from colorama import Fore, Back, Style, init
-
-init()  # necessario para o colorama funcionar
 
 
 def de_broglie_lambda(massa, velocidade, cte_planck=constants.h):
@@ -98,15 +95,15 @@ def espectro_eletromagnetico(comp_onda):
 
 
 if __name__ == "__main__":
-    print(Fore.YELLOW)
+    print()
+    print()
     print('#'*78)
-    print(Style.BRIGHT + '# {0:^74} #'.format('Programa De Broglie'))
-    print(Style.NORMAL + '#'*78)
-    print(Style.RESET_ALL)
+    print('# {0:^74} #'.format('Programa De Broglie'))
+    print('#'*78)
+    print()
 
-    print('Forneça os seguintes dados.' +
-          Fore.RED + ' Atenção para as unidades SI.')
-    print(Style.RESET_ALL)
+    print('Forneça os seguintes dados.' + ' Atenção para as unidades SI.')
+    print()
 
     massa = eval(input("Massa da partícula / kg: "))
     velocidade = eval(input("Velocidade da partícula / (m/s): "))
@@ -115,36 +112,27 @@ if __name__ == "__main__":
     energia = energia_de_foton(lambda_da_particula)
 
     print()
-    print(Back.WHITE + Fore.BLACK + Style.BRIGHT +
-          '{0:-^78}'.format('Cálculos') + Back.RESET)
-    print(Style.RESET_ALL)
+    print('{0:-^78}'.format('Cálculos'))
+    print()
 
-    print(Fore.WHITE +
-          Style.BRIGHT +
-          'Input: massa = {0:5.4E} kg     velocidade = {1:5.4E} m/s'.format(
-              massa, velocidade))
-    print(Style.RESET_ALL)
+    print('Input: massa = {0:5.4E} kg     velocidade = {1:5.4E} m/s'.format(
+        massa, velocidade))
+    print()
 
-    print('{0:<35} {1} {2:5.4E} m {3}'.format('Comprimento de onda associado',
-                                              Fore.GREEN + Style.BRIGHT,
+    print('{0:<35} {1:5.4E} m'.format('Comprimento de onda associado',
+                                      de_broglie_lambda(massa,
+                                                        velocidade)))
+
+    print('{0:<35} {1:5.4E} J'.format('Energia de um fóton',
+                                      energia_de_foton(
+                                          lambda_da_particula)))
+
+    print('{0:<35} {1:5.4E} J/mol'.format('Energia de um mol de fótons',
+                                          energia_de_foton_mol(
                                               de_broglie_lambda(massa,
-                                                                velocidade),
-                                              Style.RESET_ALL))
-
-    print('{0:<35} {1} {2:5.4E} J {3}'.format('Energia de um fóton',
-                                              Fore.GREEN + Style.BRIGHT,
-                                              energia_de_foton(
-                                                  lambda_da_particula),
-                                              Style.RESET_ALL))
-
-    print('{0:<35} {1} {2:5.4E} J/mol {3}'.format('Energia de um mol de fótons',
-                                                  Fore.GREEN + Style.BRIGHT,
-                                                  energia_de_foton_mol(
-                                                      de_broglie_lambda(massa, velocidade)),
-                                                  Style.RESET_ALL))
+                                                                velocidade))))
 
     print()
     print('Possíveis classificações com base no espectro eletromagnético:')
 
-    print(Fore.GREEN + Style.BRIGHT +
-          espectro_eletromagnetico(lambda_da_particula))
+    print(espectro_eletromagnetico(lambda_da_particula))
