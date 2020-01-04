@@ -7,7 +7,7 @@ eletromagnético. [Mais detalhes na Wikipedia](https://en.wikipedia.org/wiki/Mat
 # Dependências
 
 [SciPy](https://www.scipy.org/), [Pandas](https://pandas.pydata.org/),
-[tabulate](https://github.com/astanin/python-tabulate) e [colorama](https://github.com/tartley/colorama).
+[tabulate](https://github.com/astanin/python-tabulate).
 
 # Uso
 
