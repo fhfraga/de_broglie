@@ -1,4 +1,9 @@
 from scipy import constants
+import pandas as pd
+from tabulate import tabulate
+from colorama import Fore, Back, Style, init
+
+init()  # necessario para o colorama funcionar
 
 
 def de_broglie_lambda(massa, velocidade, cte_planck=constants.h):
@@ -29,7 +34,7 @@ def energia_de_foton(comp_onda, cte_planck=constants.h, cte_luz=constants.c):
     Parameters
     ----------
     comp_onda : float
-        lambda da partícula desejada.
+        comprimento de onda.
     cte_planck : float, opcional
         Constante de Planck, por padrão constants.h do pacote scipy,
         cuja unidade é joule por segundo.
@@ -40,60 +45,106 @@ def energia_de_foton(comp_onda, cte_planck=constants.h, cte_luz=constants.c):
     Returns
     -------
     float
-        Energia de um fóton.
+        Energia de um fóton com o comprimento de onda em questão.
     """
     energia = (cte_planck * cte_luz) / comp_onda
     return energia
 
 
-def energia_de_foton_mol(energia_de_foton, avogadro=constants.Avogadro):
-    """Calcula a energia de um foton usando a equação de Planck-Einstein,
-    modificando para um mol com a constante de Avogadro.
-
-    Parameters
-    ----------
-    energia_de_foton : float
-        Energia de um única fóton.
-    avogadro : float, opcional
-        Número de atomos em um mol de substância,por padrão constants.Avogadro
-        do pacote scipy.
-
-    Returns
-    -------
-    [float]
-        Energia de fótons em um mol de uma determinada substância.
-    """
-    energia = energia_de_foton * avogadro
-    return energia
-
-
-def espectro_eletromagnetico(comp_onda):
-    """Espectro eletromagnética associado aos comprimentos de onda
-    encontradas na primeira função.
+def energia_de_foton_mol(comp_onda, avogadro=constants.Avogadro):
+    """Calcula a energia de um mol de fóton usando a equação de Planck-Einstein.
 
     Parameters
     ----------
     comp_onda : float
-        comprimento de onda encontrado na primera função, dado em metros.
+        comprimento de onda
+    avogadro : float, optional
+        constante de Avogadro, by default constants.Avogadro
+
+    Returns
+    -------
+    float
+        Energia de um mol de fótons com o comprimento de onda em questão.
     """
-    if 7*10**-7 < comp_onda < 10**-4:
-        print("Infravermelho")
-    elif 4*10**-7 < comp_onda < 7*10**-7:
-        print("Vísivel")
-    elif 10**-8 < comp_onda < 10**-7:
-        print("Ultravioleta")
-    elif 10**-12 < comp_onda < 10**-8:
-        print("Raios-X")
-    else:
-        print("Raios Gama")
+    energia = energia_de_foton(comp_onda) * avogadro
+    return energia
+
+
+def espectro_eletromagnetico(comp_onda):
+    """Regiões do espectro eletromagnético associado a um comprimento de onda.
+
+    Parameters
+    ----------
+    comp_onda : float
+        Comprimento de onda a ser analisado.
+
+    Returns
+    -------
+    string
+        Possíveis classificações do comprimento de onda de acordo com a
+        ISO 21348. Formato string do tabulate, a visualização se torna
+        correta com o uso da função print.
+    """
+
+    df = pd.read_csv("core/ems_data.csv")
+
+    result = df[(df['Lower wavelength / m'] <= comp_onda) &
+                (comp_onda < df['Higher wavelength / m'])]
+
+    table = tabulate(result.iloc[:, 0:3], headers='keys', tablefmt='psql',
+                     showindex=False, colalign=['center']*3)
+
+    return table
 
 
 if __name__ == "__main__":
-    massa = eval(input("Massa da partícula: "))
-    velocidade = eval(input("Velocidade da partícula: "))
+    print(Fore.YELLOW)
+    print('#'*78)
+    print(Style.BRIGHT + '# {0:^74} #'.format('Programa De Broglie'))
+    print(Style.NORMAL + '#'*78)
+    print(Style.RESET_ALL)
+
+    print('Forneça os seguintes dados.' +
+          Fore.RED + ' Atenção para as unidades SI.')
+    print(Style.RESET_ALL)
+
+    massa = eval(input("Massa da partícula / kg: "))
+    velocidade = eval(input("Velocidade da partícula / (m/s): "))
+
     lambda_da_particula = de_broglie_lambda(massa, velocidade)
     energia = energia_de_foton(lambda_da_particula)
-    print(de_broglie_lambda(massa, velocidade))
-    print(energia_de_foton(lambda_da_particula))
-    print(energia_de_foton_mol(energia))
-    print(espectro_eletromagnetico(lambda_da_particula))
+
+    print()
+    print(Back.WHITE + Fore.BLACK + Style.BRIGHT +
+          '{0:-^78}'.format('Cálculos') + Back.RESET)
+    print(Style.RESET_ALL)
+
+    print(Fore.WHITE +
+          Style.BRIGHT +
+          'Input: massa = {0:5.4E} kg     velocidade = {1:5.4E} m/s'.format(
+              massa, velocidade))
+    print(Style.RESET_ALL)
+
+    print('{0:<35} {1} {2:5.4E} m {3}'.format('Comprimento de onda associado',
+                                              Fore.GREEN + Style.BRIGHT,
+                                              de_broglie_lambda(massa,
+                                                                velocidade),
+                                              Style.RESET_ALL))
+
+    print('{0:<35} {1} {2:5.4E} J {3}'.format('Energia de um fóton',
+                                              Fore.GREEN + Style.BRIGHT,
+                                              energia_de_foton(
+                                                  lambda_da_particula),
+                                              Style.RESET_ALL))
+
+    print('{0:<35} {1} {2:5.4E} J/mol {3}'.format('Energia de um mol de fótons',
+                                                  Fore.GREEN + Style.BRIGHT,
+                                                  energia_de_foton_mol(
+                                                      de_broglie_lambda(massa, velocidade)),
+                                                  Style.RESET_ALL))
+
+    print()
+    print('Possíveis classificações com base no espectro eletromagnético:')
+
+    print(Fore.GREEN + Style.BRIGHT +
+          espectro_eletromagnetico(lambda_da_particula))
