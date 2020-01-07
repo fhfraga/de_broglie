@@ -20,7 +20,7 @@ exemplo, alterando a velocidade.
 ![de_broglie2](images/exemplo02.png)
 
 As funções isoladas podem ser acessadas
-por importação em um terminal interativo ou em Jupyter Notebooks. (Tutorial a ser feito).
+por importação em um terminal interativo ou em Jupyter Notebooks. Veja alguns exemplos no ![Tutoria](https://github.com/fhfraga/de_broglie/blob/master/tutorial.ipynb) disponível em ![Jupyter nootebook](https://jupyter.org/)
 
 O programa se baseia na classificação das regiões espectrais dada pela
 [ISO 21348](https://www.iso.org/standard/39911.html) para fornecer os nomes das
